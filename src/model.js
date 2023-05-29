@@ -28,5 +28,9 @@ const model = {
       return todo;
     });
   }),
+
+  remove: action((state, id) => {
+    state.todos = state.todos.filter((todo) => todo.id !== id);
+  }),
 };
 export default model;
