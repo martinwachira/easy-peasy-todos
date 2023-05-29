@@ -1,7 +1,7 @@
 import React from "react";
 
 const AddTodo = () => {
-  return <>qwdqwdqwed</>;
+  return <></>;
 };
 
 export default AddTodo;

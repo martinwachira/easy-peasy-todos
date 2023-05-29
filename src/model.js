@@ -22,8 +22,8 @@ const model = {
   //Actions
   toggle: action((state, id) => {
     state.todos.map((todo) => {
-      if (todo.id) {
-        todo.complete = !todo.completed;
+      if (todo.id === id) {
+        todo.completed = !todo.completed;
       }
       return todo;
     });
