@@ -1,7 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
+
+import { useStoreActions } from "easy-peasy";
 
 const AddTodo = () => {
-  return <></>;
+  const [title, setTitle] = useState();
+  const add = useStoreActions((actions) => actions.add);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    add({
+      title,
+      completed: false,
+    });
+  };
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Add todo.."
+        />
+        <input type="submit" value="Add todo" />
+      </form>
+    </div>
+  );
 };
 
 export default AddTodo;

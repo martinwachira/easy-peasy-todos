@@ -1,25 +1,27 @@
-import { action } from "easy-peasy";
+import { action, thunk } from "easy-peasy";
+
+import { v4 as uuid } from "uuid";
 
 const model = {
-  todos: [
-    {
-      id: 1,
-      title: "try out easy-peasy",
-      completed: false,
-    },
-    {
-      id: 2,
-      title: "prepare supper",
-      completed: true,
-    },
-    {
-      id: 3,
-      title: "wash scott",
-      completed: true,
-    },
-  ],
+  todos: [],
+  fetchTodos: thunk(async (actions) => {
+    const res = await fetch(
+      "https://jsonplaceholder.typicode.com/todos?_limit=10"
+    );
 
-  //Actions
+    const todos = await res.json();
+    actions.setTodos(todos);
+    console.log("todos api", todos);
+  }),
+
+  // Actions
+  setTodos: action((state, todos) => {
+    state.todos = todos;
+  }),
+  add: action((state, todo) => {
+    todo.id = uuid();
+    state.todos = [...state.todos, todo];
+  }),
   toggle: action((state, id) => {
     state.todos.map((todo) => {
       if (todo.id === id) {
